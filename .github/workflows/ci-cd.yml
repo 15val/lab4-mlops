@@ -38,9 +38,9 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/lab4-airflow
       - name: Build and push API
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/lab4-api ./api
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/lab4-api .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/lab4-api
       - name: Build and push Training
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/lab4-training ./training
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/lab4-training .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/lab4-training
