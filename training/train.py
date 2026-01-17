@@ -11,13 +11,15 @@ from datasets import Dataset
 import joblib
 import os
 import glob
-
+from dotenv import load_dotenv
 # --- MinIO settings ---
-S3_ENDPOINT_URL = "http://minio:9000"
+load_dotenv()  # Завантажує .env
+
+S3_ENDPOINT_URL = os.environ.get("MINIO_ENDPOINT", "http://localhost:9000")
 S3_BUCKET = "mlops"
 S3_OBJECT = "dataset_train_latest.csv"
-S3_KEY = "minioadmin"
-S3_SECRET = "minioadmin"
+S3_KEY = os.environ.get("MINIO_ACCESS_KEY", "minioadmin")
+S3_SECRET = os.environ.get("MINIO_SECRET_KEY", "minioadmin")
 
 # --- Read dataset from MinIO ---
 s3_path = f"s3://{S3_BUCKET}/{S3_OBJECT}"

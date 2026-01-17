@@ -11,7 +11,7 @@ WORKDIR /app
 # - mlflow: для логування експериментів
 # - joblib: для збереження енкодера міток
 # - accelerate: для оптимізації тренування
-RUN pip install --no-cache-dir torch transformers datasets scikit-learn pandas mlflow joblib accelerate minio s3fs boto3
+RUN pip install --no-cache-dir torch transformers datasets scikit-learn pandas mlflow joblib accelerate minio s3fs boto3 python-dotenv
 # Копіюємо скрипт для тренування моделі у робочу директорію контейнера
 COPY training/train.py .
 

@@ -4,13 +4,16 @@ from datetime import datetime
 import shutil
 import os
 import boto3
+from dotenv import load_dotenv
 
 SOURCE_PATH = '/opt/airflow/input/dataset_train.csv'
 TARGET_DIR = '/opt/airflow/data'
 
-MINIO_ENDPOINT = "http://minio:9000"
-MINIO_ACCESS_KEY = "minioadmin"
-MINIO_SECRET_KEY = "minioadmin"
+load_dotenv()
+
+MINIO_ENDPOINT = os.environ.get("MINIO_ENDPOINT", "http://localhost:9000")
+MINIO_ACCESS_KEY = os.environ.get("MINIO_ACCESS_KEY", "minioadmin")
+MINIO_SECRET_KEY = os.environ.get("MINIO_SECRET_KEY", "minioadmin")
 MINIO_BUCKET = "mlops"
 
 
@@ -37,7 +40,8 @@ def update_data():
     shutil.copy(target_path, f"{TARGET_DIR}/dataset_train_latest.csv")
     # Завантажити у MinIO
     upload_to_minio(target_path, f"dataset_train_{timestamp}.csv")
-    upload_to_minio(f"{TARGET_DIR}/dataset_train_latest.csv", "dataset_train_latest.csv")
+    upload_to_minio(f"{TARGET_DIR}/dataset_train_latest.csv",
+                    "dataset_train_latest.csv")
 
 
 with DAG(
