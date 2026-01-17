@@ -5,6 +5,11 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  repository_dispatch:
+    types: [minio_data_updated]
+
+env:
+  MINIO_ENDPOINT: ${{ secrets.MINIO_ENDPOINT }}
 
 jobs:
   test-lint:
