@@ -5,6 +5,7 @@ from transformers import BertTokenizer, BertForSequenceClassification
 import torch
 import joblib
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     model_dir = "model"
@@ -13,7 +14,9 @@ async def lifespan(app: FastAPI):
     app.state.le = joblib.load(f"{model_dir}/label_encoder.pkl")
     yield
 
+
 app = FastAPI(lifespan=lifespan)
+
 
 @app.post("/predict")
 async def predict(request: Request, file: UploadFile = File(...)):

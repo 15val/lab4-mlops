@@ -1,5 +1,4 @@
 import mlflow
-import torch
 import pandas as pd
 from transformers import (
     BertTokenizer,
@@ -39,6 +38,7 @@ df["label"] = le.fit_transform(df["tier"])
 dataset = Dataset.from_pandas(df)
 tokenizer = BertTokenizer.from_pretrained("bert-base-multilingual-cased")
 
+
 def tokenize(batch):
     return tokenizer(
         batch["text"],
@@ -46,6 +46,7 @@ def tokenize(batch):
         truncation=True,
         max_length=128
     )
+
 
 dataset = dataset.map(tokenize, batched=True)
 dataset.set_format("torch", columns=["input_ids", "attention_mask", "label"])

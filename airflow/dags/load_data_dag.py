@@ -13,6 +13,7 @@ MINIO_ACCESS_KEY = "minioadmin"
 MINIO_SECRET_KEY = "minioadmin"
 MINIO_BUCKET = "mlops"
 
+
 def upload_to_minio(local_path, object_name):
     s3 = boto3.client(
         "s3",
@@ -27,6 +28,7 @@ def upload_to_minio(local_path, object_name):
         s3.create_bucket(Bucket=MINIO_BUCKET)
     s3.upload_file(local_path, MINIO_BUCKET, object_name)
 
+
 def update_data():
     os.makedirs(TARGET_DIR, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -36,6 +38,7 @@ def update_data():
     # Завантажити у MinIO
     upload_to_minio(target_path, f"dataset_train_{timestamp}.csv")
     upload_to_minio(f"{TARGET_DIR}/dataset_train_latest.csv", "dataset_train_latest.csv")
+
 
 with DAG(
     dag_id='update_training_data',
