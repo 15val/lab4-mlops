@@ -40,7 +40,7 @@ def update_data():
 with DAG(
     dag_id='update_training_data',
     start_date=datetime(2024, 1, 1),
-    schedule_interval='0,30 * * * *',
+    schedule_interval='*/5 * * * *',
     catchup=False
 ) as dag:
     update_task = PythonOperator(
